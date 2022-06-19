@@ -1,5 +1,8 @@
 # Computer-store.API
-API for Computer Store website (Nashtech Intern Project)
+========================================================
+## Description
+API for Computer Store website (Nashtech Intern Project)\
+Technology: Java spring boot, spring security with jwt, spring jpa\
 ========================================================
 ## Diagram
 ERD diagram: \
