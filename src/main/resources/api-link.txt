@@ -1,0 +1,18 @@
+general:
+/img/**
+api:
+api/public/category/**
+api/public/brand/**
+api/public/product/**
+api/public/account/**
+api/public/order/**
+api/public/cart/**
+api/public/rating/**
+manager api:
+api/manager/category/**
+api/manager/brand/**
+api/manager/product/**
+api/manager/account/**
+api/manager/order/**
+
+
