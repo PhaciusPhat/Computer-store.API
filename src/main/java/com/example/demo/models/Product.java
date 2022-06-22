@@ -26,10 +26,10 @@ public class Product extends Auditable{
     private int priceOut;
     private int discount;
     private int quantity;
-    private int averageStars;
+    private boolean isDisabled;
 
     public Product(String name, String urlMainImage, String description, int quantity,
-                   int priceIn, int priceOut, int discount, int averageStars) {
+                   int priceIn, int priceOut, int discount, boolean isDisabled) {
         this.name = name;
         this.urlMainImage = urlMainImage;
         this.description = description;
@@ -37,7 +37,7 @@ public class Product extends Auditable{
         this.priceOut = priceOut;
         this.discount = discount;
         this.quantity = quantity;
-        this.averageStars = averageStars;
+        this.isDisabled = isDisabled;
     }
 
     @JsonIgnore
@@ -52,7 +52,6 @@ public class Product extends Auditable{
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CartItem> cartItems;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductImages> productImages;
 

@@ -18,11 +18,11 @@ public class Category {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
     private String name;
-    private String urlImage;
+    private boolean isDisabled;
 
-    public Category(String name, String urlImage) {
+    public Category(String name, boolean isDisabled) {
         this.name = name;
-        this.urlImage = urlImage;
+        this.isDisabled = isDisabled;
     }
 
     @JsonIgnore

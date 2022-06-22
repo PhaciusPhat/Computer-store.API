@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -17,7 +18,12 @@ public class ProductImages {
     private UUID id;
     private String urlImage;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    public ProductImages(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "productId")
     private Product product;
 }

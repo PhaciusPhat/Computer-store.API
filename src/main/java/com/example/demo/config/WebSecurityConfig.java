@@ -50,12 +50,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/public/**" ).permitAll()
-                .antMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name())
-                .antMatchers("/api/public/cart/**",
-                                "/api/public/order/**",
-                                "/api/public/account/**")
-                                .authenticated()
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/api/public/**" ).permitAll()
+//                .antMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name())
+//                .antMatchers("/api/public/cart/**",
+//                                "/api/public/order/**",
+//                                "/api/public/account/**")
+//                                .authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement()

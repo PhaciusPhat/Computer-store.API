@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.cloudinary.Cloudinary;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,11 @@ import java.util.Map;
 public class NashTechInternSoloProject {
     public static void main(String[] args) {
         SpringApplication.run(NashTechInternSoloProject.class, args);
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
     @Bean
