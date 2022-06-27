@@ -19,10 +19,12 @@ public class Brand {
     private UUID id;
     private String name;
     private String urlImage;
+    private boolean isDisabled;
 
-    public Brand(String name, String urlImage) {
+    public Brand(String name, String urlImage, boolean isDisabled) {
         this.name = name;
         this.urlImage = urlImage;
+        this.isDisabled = isDisabled;
     }
 
     @JsonIgnore

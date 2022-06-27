@@ -47,7 +47,7 @@ public class BrandServiceImpl implements BrandService {
         if (findByName(name)) {
             throw new IllegalArgumentException("Brand already exists");
         }
-        Brand brand = new Brand(name, cloudinaryService.upload(file));
+        Brand brand = new Brand(name, cloudinaryService.upload(file), false);
         return brandRepository.save(brand);
     }
 
@@ -56,16 +56,17 @@ public class BrandServiceImpl implements BrandService {
         if (findByNameExceptId(id, name)) {
             throw new IllegalArgumentException("Brand already exists");
         }
-        Brand brand = findById(id);
-        brand.setName(name);
-        brand.setUrlImage(file.getSize() != 0 ? cloudinaryService.upload(file) : brand.getUrlImage());
-        return brandRepository.save(brand);
+        Brand brandToUpdate = findById(id);
+        brandToUpdate.setName(name);
+        brandToUpdate.setUrlImage(file.getSize() != 0 ? cloudinaryService.upload(file) : brandToUpdate.getUrlImage());
+        return brandRepository.save(brandToUpdate);
     }
 
 
     @Override
     public void delete(UUID id) {
         Brand brand = findById(id);
-        brandRepository.delete(brand);
+        brand.setDisabled(!brand.isDisabled());
+        brandRepository.save(brand);
     }
 }
