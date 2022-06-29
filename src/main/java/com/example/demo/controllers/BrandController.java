@@ -1,6 +1,4 @@
 package com.example.demo.controllers;
-
-import com.example.demo.models.Brand;
 import com.example.demo.services.BrandService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,5 +1,6 @@
 package com.example.demo.services.Impl;
 
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.models.Category;
 import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.services.CategoryService;
@@ -42,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category save(Category category) {
         category.setDisabled(false);
         if(findByName(category.getName()) != null) {
-            throw new IllegalArgumentException("Category already exists");
+            throw new BadRequestException("Category already exists");
         }
         return categoryRepository.save(category);
     }
@@ -50,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category update(UUID id, Category category) {
         if(findByNameExceptId(id, category.getName()) != null) {
-            throw new IllegalArgumentException("Category already exists");
+            throw new BadRequestException("Category already exists");
         }
         Category categoryToUpdate = findById(id);
         categoryToUpdate.setName(category.getName());

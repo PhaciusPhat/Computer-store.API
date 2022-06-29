@@ -1,5 +1,6 @@
 package com.example.demo.services.Impl;
 
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.models.Brand;
 import com.example.demo.repositories.BrandRepository;
 import com.example.demo.services.BrandService;
@@ -45,7 +46,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand save(String name, MultipartFile file) {
         if (findByName(name)) {
-            throw new IllegalArgumentException("Brand already exists");
+            throw new BadRequestException("Brand already exists");
         }
         Brand brand = new Brand(name, cloudinaryService.upload(file), false);
         return brandRepository.save(brand);
@@ -54,7 +55,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand update(UUID id, String name, MultipartFile file) {
         if (findByNameExceptId(id, name)) {
-            throw new IllegalArgumentException("Brand already exists");
+            throw new BadRequestException("Brand already exists");
         }
         Brand brandToUpdate = findById(id);
         brandToUpdate.setName(name);
