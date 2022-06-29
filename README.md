@@ -5,3 +5,5 @@ Technology: Java spring boot, spring security with jwt, spring jpa
 ## Diagram
 ERD diagram: \
 ![Alt text](/erd.png "Optional title")
+DB diagram: \
+![Alt text](/db.png "Optional title")
