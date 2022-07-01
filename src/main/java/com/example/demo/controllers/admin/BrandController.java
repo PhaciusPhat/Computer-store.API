@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.demo.controllers.admin;
 import com.example.demo.services.BrandService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/api/public/brand")
+@RequestMapping("/api/admin/brand")
 public class BrandController {
     private final BrandService brandService;
 

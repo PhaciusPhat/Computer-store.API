@@ -109,7 +109,8 @@ public class ProductServiceImpl implements ProductService {
             throw new BadRequestException("product already exists");
         } else {
             Product product = findById(id);
-            String url = urlMainImage.isEmpty() ? product.getUrlMainImage() : urlMainImage;
+            String url = urlMainImage.isEmpty() || urlMainImage.trim().equals("\"\"") ?
+                    product.getUrlMainImage() : urlMainImage;
             product = productRepository.save(createProductWithImages(name, file, url, description,
                     priceIn, priceOut, quantity, discount, categoryId, brandId, id, true));
             productImagesService.save(product.getUrlMainImage(), product);

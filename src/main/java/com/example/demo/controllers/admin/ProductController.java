@@ -1,10 +1,6 @@
-package com.example.demo.controllers;
-
-import com.example.demo.services.ProductImagesService;
+package com.example.demo.controllers.admin;
 import com.example.demo.services.ProductService;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import com.example.demo.utils.Utilities;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,26 +8,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/public/product")
+@RequestMapping("/api/admin/product")
 public class ProductController {
     private final ProductService productService;
-    private final ProductImagesService productImagesService;
+    private final Utilities utilities;
 
-    public ProductController(ProductService productService, ProductImagesService productImagesService) {
+    public ProductController(ProductService productService, Utilities utilities) {
         this.productService = productService;
-        this.productImagesService = productImagesService;
-    }
-
-    private Pageable createPageable(Integer page, Integer size, String sort) {
-        Sort sortable = null;
-        if (sort.equals("ASC")) {
-            sortable = Sort.by("id").ascending();
-        }
-        if (sort.equals("DESC")) {
-            sortable = Sort.by("id").descending();
-        }
-        assert sortable != null;
-        return PageRequest.of(page, size, sortable);
+        this.utilities = utilities;
     }
 
 
@@ -41,8 +25,7 @@ public class ProductController {
             @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort
     ) {
-        return ResponseEntity.ok(productService.findAll(createPageable(page, size, sort)));
-//        return ResponseEntity.ok(productService.findAllEnabledProducts(createPageable(page, size, sort)));
+        return ResponseEntity.ok(productService.findAll(utilities.createPageable(page, size, sort)));
     }
 
     @GetMapping("/detail/{id}")
@@ -52,27 +35,21 @@ public class ProductController {
 
     @GetMapping("/category/{id}")
     public ResponseEntity<?> findAllByCategoryId(@PathVariable UUID id,
-         @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-         @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
-         @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort
+                                                 @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                 @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+                                                 @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort
     ) {
-        return ResponseEntity.ok(productService.findAllByCategoryId(id, createPageable(page, size, sort)));
+        return ResponseEntity.ok(productService.findAllByCategoryId(id, utilities.createPageable(page, size, sort)));
     }
 
     @GetMapping("/brand/{id}")
     public ResponseEntity<?> findAllByBrandId(@PathVariable UUID id,
-      @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-      @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
-      @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
-        return ResponseEntity.ok(productService.findAllByBrandId(id, createPageable(page, size, sort)));
+                                              @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                              @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+                                              @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
+        return ResponseEntity.ok(productService.findAllByBrandId(id, utilities.createPageable(page, size, sort)));
     }
-
-    @GetMapping("/images/{id}")
-    public ResponseEntity<?> findAllByProductId(@PathVariable UUID id) {
-        return ResponseEntity.ok(productImagesService.findAllByProductId(id));
-    }
-
-
+    
     @PostMapping
     public ResponseEntity<?> save(@RequestParam String name, @RequestParam MultipartFile file,
                                   @RequestParam String description, @RequestParam int priceIn,

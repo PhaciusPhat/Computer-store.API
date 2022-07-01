@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,12 +29,11 @@ public class JwtTokenUtils {
         return claimsResolver.apply(getAllClaimsFromToken(token));
     }
 
-    @Deprecated
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
-    private Date getExpirationDate(String token){
+    public Date getExpirationDate(String token){
         return getAllClaimsFromToken(token).getExpiration();
     }
 

@@ -1,5 +1,6 @@
 package com.example.demo.response.dto;
 
+import com.example.demo.models.Product;
 import com.example.demo.models.ProductImages;
 import com.example.demo.models.Rating;
 import lombok.AllArgsConstructor;

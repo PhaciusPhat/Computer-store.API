@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface RatingService {
     Page<Rating> getAllRatings(UUID productId,
                                Pageable pageable);
-    Rating save(Rating rating);
-    void update(Rating rating);
-    void delete(UUID accountId, UUID productId);
+    Rating save(UUID productId, int stars, String comment);
+    void update(UUID productId, int stars, String comment);
+    void delete(UUID productId);
 }

@@ -9,10 +9,10 @@ api/public/order/**
 api/public/cart/**
 api/public/rating/**
 manager api:
-api/manager/category/**
-api/manager/brand/**
-api/manager/product/**
-api/manager/account/**
-api/manager/order/**
+api/admin/category/**
+api/admin/brand/**
+api/admin/product/**
+api/admin/account/**
+api/admin/order/**
 
 

@@ -15,12 +15,12 @@ import javax.persistence.*;
 @Entity(name="Rating")
 @EqualsAndHashCode(callSuper = true)
 public class Rating extends Auditable{
+    @JsonIgnore
     @EmbeddedId
     private RatingKey ratingKey;
     private int stars;
     private String comment;
 
-    @JsonIgnore
     @MapsId("accountId")
     @JoinColumn(name="accountId")
     @ManyToOne(fetch = FetchType.EAGER)
@@ -29,6 +29,6 @@ public class Rating extends Auditable{
     @JsonIgnore
     @MapsId("productId")
     @JoinColumn(name="productId")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 }

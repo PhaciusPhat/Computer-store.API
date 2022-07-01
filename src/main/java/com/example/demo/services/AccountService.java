@@ -8,19 +8,27 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 public interface AccountService {
-    Page<AccountDTO> findAll(Pageable pageable);
-    AccountDTO findById(UUID id);
-    AccountDTO findByUsername(String username);
-    void save(Account account);
+    Page<AccountDTO> findAllDTO(Pageable pageable);
+
+    AccountDTO findDTOById(UUID id);
+
+    AccountDTO findDTOByUsername();
+
+    Account save(Account account);
+
     void updateAccountInformation
-            (String username, String name,
-             String email, String phone);
+            (Account account);
+
     void updateAccountPassword
             (String username, String password,
              String newPassword);
-    String requestActiveAccount(String username);
-    void activeAccount(String username, String code,
-                              String encodeString);
+
+    String requestActiveAccount();
+
+    void activeAccount(String code,
+                       String encryptString);
+
     void activeAccount(UUID id);
+
     void delete(UUID id);
 }
