@@ -10,6 +10,5 @@ public interface RatingService {
     Page<Rating> getAllRatings(UUID productId,
                                Pageable pageable);
     Rating save(UUID productId, int stars, String comment);
-    void update(UUID productId, int stars, String comment);
     void delete(UUID productId);
 }

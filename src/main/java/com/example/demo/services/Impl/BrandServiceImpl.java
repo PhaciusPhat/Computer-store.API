@@ -35,6 +35,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     private boolean findByName(String name) {
+        Brand x = brandRepository.findByName(name);
         return brandRepository.findByName(name) != null;
     }
 

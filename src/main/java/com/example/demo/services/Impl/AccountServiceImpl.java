@@ -93,6 +93,10 @@ public class AccountServiceImpl implements AccountService {
         if (accountExist != null) {
             throw new BadRequestException("Username is exist");
         }
+        accountExist = accountRepository.findByEmail(account.getEmail());
+        if (accountExist != null) {
+            throw new BadRequestException("Email is exist");
+        }
         account.setIsActive(false);
         account.setIsDisabled(false);
         account.setRole(Role.USER);
@@ -140,6 +144,9 @@ public class AccountServiceImpl implements AccountService {
         String encryptString = username + "-" + randomNumber + "-" + timestamp;
         //gửi code về mail user
         Account account = findByUsername(username);
+        if(account.getIsActive()){
+            throw new BadRequestException("Account is active");
+        }
         emailService.sendMail(account.getEmail(), "Active account", "Your code is: " + randomNumber);
         return utilities.encrypt(encryptString, secretKey);
     }

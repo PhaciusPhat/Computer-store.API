@@ -5,6 +5,7 @@ import com.example.demo.exception.BadRequestException;
 import com.example.demo.models.Account;
 import com.example.demo.repositories.AccountRepository;
 import com.example.demo.services.JwtUserDetailService;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +31,9 @@ public class JwtUserDetailServiceImpl implements JwtUserDetailService {
         if (account == null){
             throw new NotFoundException("User not found");
         } else{
+            if(account.getIsDisabled()){
+                throw new BadRequestException("User is disabled");
+            }
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(account.getRole().name()));
             return new org.springframework.security.core
@@ -41,8 +45,13 @@ public class JwtUserDetailServiceImpl implements JwtUserDetailService {
     public void registerUser(Account account) {
         Account isExists = accountRepository.findByUsername(account.getUsername());
         if(isExists != null) {
-            throw new BadRequestException("User already exists");
-        } else{
+            throw new BadRequestException("Username already exists");
+        }
+        isExists = accountRepository.findByEmail(account.getEmail());
+        if(isExists != null) {
+            throw new BadRequestException("Email already exists");
+        }
+        else{
             account.setPassword(passwordEncoder.encode(account.getPassword()));
             account.setIsDisabled(false);
             account.setIsActive(false);

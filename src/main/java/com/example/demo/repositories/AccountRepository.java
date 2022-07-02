@@ -10,4 +10,7 @@ import java.util.UUID;
 public interface AccountRepository extends JpaRepository<Account, UUID> {
     @Query("SELECT a FROM Account a WHERE a.username = ?1")
     Account findByUsername(String username);
+
+    @Query("SELECT a FROM Account a WHERE a.email = ?1")
+    Account findByEmail(String email);
 }
