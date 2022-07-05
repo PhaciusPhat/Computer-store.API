@@ -7,12 +7,14 @@ import com.example.demo.services.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/public/account")
-public class AccountDTOController {
+public class AccountClientController {
     private final AccountService accountService;
 
-    public AccountDTOController(AccountService accountService) {
+    public AccountClientController(AccountService accountService) {
         this.accountService = accountService;
     }
 

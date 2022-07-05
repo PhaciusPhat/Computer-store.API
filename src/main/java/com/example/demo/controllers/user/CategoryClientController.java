@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/public/category")
-public class CategoryDTOController {
+public class CategoryClientController {
     private final CategoryService categoryService;
 
-    public CategoryDTOController(CategoryService categoryService) {
+    public CategoryClientController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 

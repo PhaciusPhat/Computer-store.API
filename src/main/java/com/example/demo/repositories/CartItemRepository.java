@@ -10,10 +10,10 @@ import java.util.UUID;
 
 public interface CartItemRepository extends JpaRepository<CartItem, CartItemKey> {
 
-    @Query("SELECT c FROM cartItem c WHERE c.cartItemKey.accountId = :accountId")
+    @Query("SELECT c FROM CartItem c WHERE c.cartItemKey.accountId = :accountId")
     List<CartItem> getCartItems(UUID accountId);
 
-    @Query("SELECT c FROM cartItem c WHERE c.cartItemKey.accountId = :accountId AND c.cartItemKey.productId = :productId")
+    @Query("SELECT c FROM CartItem c WHERE c.cartItemKey.accountId = :accountId AND c.cartItemKey.productId = :productId")
     CartItem getCartItemByAccountIdAndProductId(UUID accountId, UUID productId);
 
 

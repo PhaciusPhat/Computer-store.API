@@ -13,7 +13,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Rating")
-@EqualsAndHashCode(callSuper = true)
 public class Rating extends Auditable{
     @JsonIgnore
     @EmbeddedId

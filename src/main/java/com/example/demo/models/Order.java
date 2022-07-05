@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @Entity(name = "OrderEntity")
 public class Order extends Auditable {
     @Id

@@ -9,11 +9,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/public/product")
-public class ProductDTOController {
+public class ProductClientController {
     private final ProductDTOService productDTOService;
     private final Utilities utilities;
 
-    public ProductDTOController(ProductDTOService productDTOService, Utilities utilities) {
+    public ProductClientController(ProductDTOService productDTOService, Utilities utilities) {
         this.productDTOService = productDTOService;
         this.utilities = utilities;
     }

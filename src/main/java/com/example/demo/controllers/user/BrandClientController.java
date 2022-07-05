@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/public/brand")
-public class BrandDTOController {
+public class BrandClientController {
     private final BrandService brandService;
 
-    public BrandDTOController(BrandService brandService) {
+    public BrandClientController(BrandService brandService) {
         this.brandService = brandService;
     }
 

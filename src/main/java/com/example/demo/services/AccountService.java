@@ -13,6 +13,7 @@ public interface AccountService {
     AccountDTO findDTOById(UUID id);
 
     AccountDTO findDTOByUsername();
+    Account findLocalAccountByUsername();
 
     Account save(Account account);
 

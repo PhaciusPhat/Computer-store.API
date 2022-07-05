@@ -88,8 +88,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account findLocalAccountByUsername() {
+        return accountRepository.findByUsername(getLocalUsername());
+    }
+
+    @Override
     public Account save(Account account) {
-        Account accountExist = accountRepository.findByUsername(account.getUsername());
+        Account accountExist = accountRepository.
+                findByUsername(account.getUsername());
         if (accountExist != null) {
             throw new BadRequestException("Username is exist");
         }

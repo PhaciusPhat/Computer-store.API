@@ -4,6 +4,9 @@ import com.example.demo.services.CloudinaryService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.UUID;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/general")
@@ -25,8 +28,8 @@ public class GeneralController {
     }
 
     @PutMapping
-    public String putGeneral(@RequestBody String x) {
-        return x;
+    public String putGeneral(@RequestBody List<UUID> x) {
+        return x.get(0).toString();
     }
 
     @DeleteMapping

@@ -1,8 +1,10 @@
 package com.example.demo.services.Impl;
 
 import com.example.demo.models.Product;
+import com.example.demo.models.Rating;
 import com.example.demo.repositories.ProductRepository;
 import com.example.demo.response.dto.ProductDTO;
+import com.example.demo.response.dto.RatingDTO;
 import com.example.demo.services.ProductDTOService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -25,13 +27,21 @@ public class ProductServiceDTOImpl implements ProductDTOService {
         this.productRepository = productRepository;
     }
 
+    private RatingDTO convertToDTO(Rating rating) {
+        RatingDTO ratingDTO = modelMapper.map(rating, RatingDTO.class);
+        ratingDTO.setAccountName(rating.getAccount().getName());
+        return ratingDTO;
+    }
+
     public ProductDTO convertToDto(Product product) {
         if(product == null) {
             return null;
         }
         ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
         productDTO.setProductImages(product.getProductImages());
-        productDTO.setRatings(product.getRatings());
+        productDTO.setRatingDTOs(product.getRatings().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList()));
         return productDTO;
     }
 

@@ -53,13 +53,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/public/rating/**").permitAll()
-                .antMatchers("/api/public/**", "/swagger/**").permitAll()
                 .antMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name())
                 .antMatchers("/api/public/cart/**",
-                        "/api/public/order/**",
-                        "/api/public/account/**",
-                        "/api/public/rating/**")
+                                        "/api/public/order/**",
+                                        "/api/public/account/**",
+                                        "/api/public/rating/**")
                 .authenticated()
+                .antMatchers("/api/public/**", "/swagger/**").permitAll()
+
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement()
