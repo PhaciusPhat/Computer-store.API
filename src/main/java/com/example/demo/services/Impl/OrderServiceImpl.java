@@ -128,7 +128,12 @@ public class OrderServiceImpl implements OrderService {
     @SneakyThrows
     public void updateStatus(UUID orderId, OrderStatus status) {
         Order order = findById(orderId);
-        order.setStatus(status);
+        if(order.getStatus() == OrderStatus.PENDING) {
+            order.setStatus(status);
+            orderRepository.save(order);
+        } else {
+            throw new BadRequestException("Order is not pending");
+        }
         orderRepository.save(order);
     }
 }

@@ -22,7 +22,7 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<?> findAll(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-            @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+            @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort
     ) {
         return ResponseEntity.ok(productService.findAll(utilities.createPageable(page, size, sort)));
@@ -36,7 +36,7 @@ public class ProductController {
     @GetMapping("/category/{id}")
     public ResponseEntity<?> findAllByCategoryId(@PathVariable UUID id,
                                                  @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                 @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+                                                 @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
                                                  @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort
     ) {
         return ResponseEntity.ok(productService.findAllByCategoryId(id, utilities.createPageable(page, size, sort)));
@@ -45,7 +45,7 @@ public class ProductController {
     @GetMapping("/brand/{id}")
     public ResponseEntity<?> findAllByBrandId(@PathVariable UUID id,
                                               @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                              @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+                                              @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
                                               @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
         return ResponseEntity.ok(productService.findAllByBrandId(id, utilities.createPageable(page, size, sort)));
     }

@@ -25,7 +25,7 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<?> findAll(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-            @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+            @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
         return ResponseEntity.ok(orderService.findAll(utilities.createPageable(page, size, sort)));
     }
@@ -38,13 +38,14 @@ public class OrderController {
     @GetMapping("/account/{id}")
     public ResponseEntity<?> findByAccountId(@PathVariable UUID id,
                                              @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                             @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+                                             @RequestParam(name = "size", required = false, defaultValue = "10") Integer size,
                                              @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
         return ResponseEntity.ok(orderService.findAllByAccountId(id, utilities.createPageable(page, size, sort)));
     }
 
     @PutMapping("/status/approve/{id}")
     public ResponseEntity<?> approveOrder(@PathVariable UUID id) {
+        System.out.println("approveOrder");
         orderService.updateStatus(id, OrderStatus.APPROVED);
         return ResponseEntity.ok("Order approved");
     }

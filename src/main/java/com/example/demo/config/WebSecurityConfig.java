@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
+        httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
 //                .antMatchers("/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/public/rating/**").permitAll()
@@ -60,7 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                         "/api/public/rating/**")
                 .authenticated()
                 .antMatchers("/api/public/**", "/swagger/**").permitAll()
-
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and().sessionManagement()
