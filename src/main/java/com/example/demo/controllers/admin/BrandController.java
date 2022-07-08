@@ -32,7 +32,7 @@ public class BrandController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable UUID id, @RequestParam("name") String name, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestParam("name") String name, @RequestParam(value = "file", required = false) MultipartFile file){
         return ResponseEntity.ok(brandService.update(id, name, file));
     }
 

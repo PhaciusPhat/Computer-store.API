@@ -32,6 +32,9 @@ public class Account extends Auditable{
     @NotBlank(message = "Password is required")
     private String password;
     @Column(unique = true)
+    @Size(min = 5, message = "Email must be between 5 and 15 characters")
+    @NotNull(message = "Email is required")
+    @NotBlank(message = "Email is required")
     private String email;
     @Size(min = 2, message = "Name must at least be at least 2 characters")
     @NotNull(message = "Name is required")

@@ -19,7 +19,6 @@ public class ProductDTO {
     private int priceOut;
     private int discount;
     private int quantity;
-    private int averageStars;
     private List<RatingDTO> ratingDTOs;
     private List<ProductImages> productImages;
 }

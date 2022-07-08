@@ -75,7 +75,7 @@ public class BrandServiceImpl implements BrandService {
         }
         Brand brandToUpdate = findById(id);
         brandToUpdate.setName(name);
-        brandToUpdate.setUrlImage(file.getSize() != 0 ? cloudinaryService.upload(file) : brandToUpdate.getUrlImage());
+        brandToUpdate.setUrlImage(file != null ? cloudinaryService.upload(file) : brandToUpdate.getUrlImage());
         return brandRepository.save(brandToUpdate);
     }
 

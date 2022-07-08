@@ -60,7 +60,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable UUID id, @RequestParam String name, @RequestParam MultipartFile file,
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestParam String name, @RequestParam(value = "file", required = false) MultipartFile file,
                                     @RequestParam String urlMainImage, @RequestParam String description, @RequestParam int priceIn,
                                     @RequestParam int priceOut, @RequestParam int quantity, @RequestParam int discount,
                                     @RequestParam UUID categoryId, @RequestParam UUID brandId) {

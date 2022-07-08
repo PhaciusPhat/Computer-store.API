@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     private Product createProductWithImages(String name, MultipartFile file, String urlImage,
                                             String description, int priceIn, int priceOut, int quantity,
                                             int discount, UUID categoryId, UUID brandId, UUID id, boolean isUpdate) {
-        String url = file.getSize() > 0 ? cloudinaryService.upload(file) : urlImage;
+        String url = file != null ? cloudinaryService.upload(file) : urlImage;
         Product product = new Product();
         if(isUpdate){
             product.setId(id);
