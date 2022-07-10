@@ -18,7 +18,6 @@ public class OrderDTO {
     private long total;
     private String address;
     private String description;
-    private OrderStatus status;
     private long createdDate;
 
 }

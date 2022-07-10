@@ -58,8 +58,6 @@ public class ProductServiceImpl implements ProductService {
         product.setDisabled(false);
         product.setCategory(categoryService.findById(categoryId));
         product.setBrand(brandService.findById(brandId));
-        ProductImages productImages = new ProductImages(url);
-        productImages.setProduct(product);
         return product;
     }
 
@@ -80,13 +78,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> findAllEnabledProducts(Pageable pageable) {
-        return productRepository.findAllEnabledProducts(false, pageable);
+        return productRepository.findAllEnabledProducts(pageable);
     }
 
     @Override
     @SneakyThrows
     public Product findById(UUID id) {
-        return productRepository.findById(id).orElseThrow(() -> new NotFoundException("not found"));
+        return productRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found"));
     }
 
     @Override
@@ -95,10 +93,9 @@ public class ProductServiceImpl implements ProductService {
         if (findByName(name) != null) {
             throw new BadRequestException("name already exists");
         } else {
-            Product product = productRepository.save(createProductWithImages(name, file, null, description,
-                    priceIn, priceOut, quantity, discount, categoryId, brandId, null, false));
-            productImagesService.save(product.getUrlMainImage(), product);
-            return product;
+            Product product = createProductWithImages(name, file, null, description,
+                    priceIn, priceOut, quantity, discount, categoryId, brandId, null, false);
+            return productRepository.save(product);
         }
     }
 
@@ -111,10 +108,9 @@ public class ProductServiceImpl implements ProductService {
             Product product = findById(id);
             String url = urlMainImage.isEmpty() || urlMainImage.trim().equals("\"\"") ?
                     product.getUrlMainImage() : urlMainImage;
-            product = productRepository.save(createProductWithImages(name, file, url, description,
-                    priceIn, priceOut, quantity, discount, categoryId, brandId, id, true));
-            productImagesService.save(product.getUrlMainImage(), product);
-            return product;
+            product = createProductWithImages(name, file, url, description,
+                    priceIn, priceOut, quantity, discount, categoryId, brandId, id, true);
+            return productRepository.save(product);
         }
     }
 

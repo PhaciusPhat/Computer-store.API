@@ -22,7 +22,7 @@ public class ProductClientController {
     @GetMapping
     public ResponseEntity<?> findAll(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-            @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+            @RequestParam(name = "size", required = false, defaultValue = "4") Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort
     ) {
         return ResponseEntity.ok(productDTOService.findAllDTO(utilities.createPageable(page, size, sort)));
@@ -41,7 +41,7 @@ public class ProductClientController {
     @GetMapping("/category/{id}")
     public ResponseEntity<?> findAllByCategoryId(@PathVariable UUID id,
                                                  @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                 @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+                                                 @RequestParam(name = "size", required = false, defaultValue = "4") Integer size,
                                                  @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort
     ) {
         return ResponseEntity.ok(productDTOService.findAllDTOByCategoryId(id, utilities.createPageable(page, size, sort)));
@@ -50,7 +50,7 @@ public class ProductClientController {
     @GetMapping("/brand/{id}")
     public ResponseEntity<?> findAllByBrandId(@PathVariable UUID id,
                                               @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                              @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+                                              @RequestParam(name = "size", required = false, defaultValue = "4") Integer size,
                                               @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
         return ResponseEntity.ok(productDTOService.findAllDTOByBrandId(id, utilities.createPageable(page, size, sort)));
     }

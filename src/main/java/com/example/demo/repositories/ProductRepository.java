@@ -27,18 +27,15 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     @Query("SELECT p FROM Product p WHERE p.id <> :id AND lower(p.name) = lower(:name)")
     Product findByNameExceptId(UUID id, String name);
 
-    @Query("SELECT p FROM Product p " +
-            "INNER JOIN Rating r " +
-            "ON p.id = r.product.id " +
-            "WHERE r.stars = " +
-            "(select max(stars) from Rating) " +
-            "AND p.isDisabled = false")
+
+    @Query(nativeQuery = true,
+            value = "SELECT distinct p.* FROM product p INNER JOIN rating r ON p.id = r.product_id WHERE r.stars = (select max(stars) from rating) AND p.is_disabled = false limit 4")
     List<Product> findAllByRating();
 
     @Query("SELECT p FROM Product p WHERE p.isDisabled = false")
     Page<Product> findAllEnabledProducts(@NotNull Pageable pageable);
 
-    @Query("SELECT p FROM Product p WHERE p.isDisabled = false AND p.category.id = :id")
+    @Query("SELECT p FROM Product p WHERE p.isDisabled = false AND p.id = :id")
     Product findByIdEnabledProduct(UUID id);
 
     @Query("SELECT p FROM Product p WHERE p.category.id = :id AND p.isDisabled = false")

@@ -7,6 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductImagesService {
-    List<ProductImages> findAllByProductId(UUID id);
     ProductImages save(String url, Product product);
 }

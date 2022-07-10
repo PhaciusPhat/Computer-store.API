@@ -19,6 +19,8 @@ public class ProductDTO {
     private int priceOut;
     private int discount;
     private int quantity;
+    private String categoryName;
+    private String brandName;
     private List<RatingDTO> ratingDTOs;
     private List<ProductImages> productImages;
 }

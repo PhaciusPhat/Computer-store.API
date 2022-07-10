@@ -45,7 +45,6 @@ public class OrderServiceImpl implements OrderService {
                 order.getAccount().getName(),
                 order.getTotal(), order.getAddress(),
                 order.getDescription(),
-                order.getStatus(),
                 order.getCreatedDate());
     }
 
@@ -73,6 +72,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order save(OrderRequest orderRequest) {
         Account account = accountService.findLocalAccountByUsername();
+        if(!account.getIsActive()) {
+            throw new BadRequestException("Account is not active");
+        }
         long total = 0;
         List<UUID> productIds = new ArrayList<>();
         if (orderRequest.getOrderProducts().size() == 0) {
@@ -82,13 +84,13 @@ public class OrderServiceImpl implements OrderService {
 //      check number of products in order and calculate number of products in cart
         for (OrderProductWithNumber orderProductWithNumber : orderRequest.getOrderProducts()) {
             if (orderProductWithNumber.getNumber() < 1) {
-                throw new BadRequestException("Invalid number of product have id ${orderProductWithNumber.getProductId()}");
+                throw new BadRequestException("Invalid number of product");
             }
             if (orderProductWithNumber.getNumber() > productService.findById(orderProductWithNumber.getProductId()).getQuantity()) {
-                throw new BadRequestException("Not enough product have id ${orderProductWithNumber.getProductId()}");
+                throw new BadRequestException("Not enough product");
             }
             if(productService.findById(orderProductWithNumber.getProductId()).isDisabled()) {
-                throw new BadRequestException("Product have id ${orderProductWithNumber.getProductId()} is disabled");
+                throw new BadRequestException("Product is disabled");
             }
             long productPrice = (long) (productService.findById(orderProductWithNumber.getProductId()).getPriceOut()
                                 - productService.findById(orderProductWithNumber.getProductId()).getPriceOut() *
@@ -104,11 +106,11 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal(total);
         order.setAddress(orderRequest.getAddress());
         order.setDescription(orderRequest.getDescription());
-        order.setStatus(OrderStatus.PENDING);
         order.setAccount(account);
         Order saveOrder = orderRepository.save(order);
 //      update product quantity
         for (OrderProductWithNumber orderProductWithNumber : orderRequest.getOrderProducts()) {
+
             productService.updateProductQuantityAfterOrder(orderProductWithNumber.getProductId(),
                     orderProductWithNumber.getNumber());
             OrderItemKey orderItemKey = new OrderItemKey(saveOrder.getId(), orderProductWithNumber.getProductId());
@@ -116,7 +118,7 @@ public class OrderServiceImpl implements OrderService {
             Product product = productService.findById(orderProductWithNumber.getProductId());
             orderItem.setOrderItemKey(orderItemKey);
             orderItem.setQuantity(orderProductWithNumber.getNumber());
-            orderItem.setPrice(product.getPriceOut());
+            orderItem.setPrice((int) (product.getPriceOut() - product.getPriceOut() * ((float) product.getDiscount() / 100.0)));
             orderItem.setOrder(saveOrder);
             orderItem.setProduct(product);
             orderItemService.addOrderItem(orderItem);
@@ -124,16 +126,4 @@ public class OrderServiceImpl implements OrderService {
         return saveOrder;
     }
 
-    @Override
-    @SneakyThrows
-    public void updateStatus(UUID orderId, OrderStatus status) {
-        Order order = findById(orderId);
-        if(order.getStatus() == OrderStatus.PENDING) {
-            order.setStatus(status);
-            orderRepository.save(order);
-        } else {
-            throw new BadRequestException("Order is not pending");
-        }
-        orderRepository.save(order);
-    }
 }

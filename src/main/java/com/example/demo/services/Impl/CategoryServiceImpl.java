@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final ModelMapper modelMapper;
 
 
-    private CategoryDTO convertToDTO(Category category) {
+    public CategoryDTO convertToDTO(Category category) {
         return category != null ? modelMapper.map(category, CategoryDTO.class) : null;
     }
 

@@ -25,7 +25,7 @@ public class OrderClientController {
     @GetMapping
     public ResponseEntity<?> findAll(
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-            @RequestParam(name = "size", required = false, defaultValue = "1") Integer size,
+            @RequestParam(name = "size", required = false, defaultValue = "4") Integer size,
             @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort){
         return ResponseEntity.ok(orderService.findAllByLocalAccount(utilities.createPageable(page, size, sort)));
     }

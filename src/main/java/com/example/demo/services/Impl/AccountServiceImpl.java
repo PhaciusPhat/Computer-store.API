@@ -112,9 +112,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void updateAccountInformation(Account account) {
-        Account accountExist = accountRepository.findByUsername(account.getUsername());
+        Account accountExist = findLocalAccountByUsername();
         if (!checkAccount(accountExist.getUsername())) {
             accountExist.setName(account.getName());
+            Account checkEmail = accountRepository.findByEmail(account.getEmail());
+            if (checkEmail != null && !Objects.equals(checkEmail.getUsername(), accountExist.getUsername())) {
+                throw new BadRequestException("Email is exist");
+            }
             accountExist.setEmail(account.getEmail());
             accountExist.setPhone(account.getPhone());
             accountRepository.save(accountExist);

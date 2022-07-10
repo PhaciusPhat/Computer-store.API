@@ -42,17 +42,4 @@ public class OrderController {
                                              @RequestParam(name = "sort", required = false, defaultValue = "ASC") String sort) {
         return ResponseEntity.ok(orderService.findAllByAccountId(id, utilities.createPageable(page, size, sort)));
     }
-
-    @PutMapping("/status/approve/{id}")
-    public ResponseEntity<?> approveOrder(@PathVariable UUID id) {
-        System.out.println("approveOrder");
-        orderService.updateStatus(id, OrderStatus.APPROVED);
-        return ResponseEntity.ok("Order approved");
-    }
-
-    @PutMapping("/status/reject/{id}")
-    public ResponseEntity<?> rejectOrder(@PathVariable UUID id) {
-        orderService.updateStatus(id, OrderStatus.REJECTED);
-        return ResponseEntity.ok("Order rejected");
-    }
 }

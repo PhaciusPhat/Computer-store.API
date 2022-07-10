@@ -30,7 +30,7 @@ public class BrandServiceImpl implements BrandService {
         this.modelMapper = modelMapper;
     }
 
-    private BrandDTO convertToDTO(Brand brand) {
+    public BrandDTO convertToDTO(Brand brand) {
         return brand != null ? modelMapper.map(brand, BrandDTO.class) : null;
     }
 

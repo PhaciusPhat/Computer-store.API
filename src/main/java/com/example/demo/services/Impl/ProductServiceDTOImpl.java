@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+
+
+
 @Service
 public class ProductServiceDTOImpl implements ProductDTOService {
 
@@ -27,12 +30,6 @@ public class ProductServiceDTOImpl implements ProductDTOService {
         this.productRepository = productRepository;
     }
 
-    private RatingDTO convertToDTO(Rating rating) {
-        RatingDTO ratingDTO = modelMapper.map(rating, RatingDTO.class);
-        ratingDTO.setAccountName(rating.getAccount().getName());
-        return ratingDTO;
-    }
-
     public ProductDTO convertToDto(Product product) {
         if(product == null) {
             return null;
@@ -40,10 +37,18 @@ public class ProductServiceDTOImpl implements ProductDTOService {
         ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
         productDTO.setProductImages(product.getProductImages());
         productDTO.setRatingDTOs(product.getRatings().stream()
-                .map(this::convertToDTO)
+                .map(this::convertToRatingsDTO)
                 .collect(Collectors.toList()));
         return productDTO;
     }
+
+    private RatingDTO convertToRatingsDTO(Rating rating) {
+        RatingDTO ratingDTO = modelMapper.map(rating, RatingDTO.class);
+        ratingDTO.setAccountName(rating.getAccount().getName());
+        return ratingDTO;
+    }
+
+
 
     @Override
     public Page<ProductDTO> findAllDTO(Pageable pageable) {
@@ -69,6 +74,7 @@ public class ProductServiceDTOImpl implements ProductDTOService {
     @Override
     public ProductDTO findByIdDTO(UUID id) {
         System.out.println("id: " + id);
-        return convertToDto(productRepository.findById(id).orElseThrow(() -> new NotFoundException("Product not found")));
+        return convertToDto(productRepository.findById(id).filter(product -> !product.isDisabled())
+                .orElseThrow(() -> new NotFoundException("Product not found")));
     }
 }

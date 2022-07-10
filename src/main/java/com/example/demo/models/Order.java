@@ -24,13 +24,11 @@ public class Order extends Auditable {
     @NotNull(message = "address is required")
     private String address;
     private String description;
-    private OrderStatus status;
 
-    public Order(long total, String address, String description, OrderStatus status) {
+    public Order(long total, String address, String description) {
         this.total = total;
         this.address = address;
         this.description = description;
-        this.status = status;
     }
 
     @JsonIgnore

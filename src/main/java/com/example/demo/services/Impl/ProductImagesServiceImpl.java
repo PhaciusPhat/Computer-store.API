@@ -24,11 +24,6 @@ public class ProductImagesServiceImpl implements ProductImagesService {
     }
 
     @Override
-    public List<ProductImages> findAllByProductId(UUID id) {
-        return productImagesRepository.findAllByProductId(id);
-    }
-
-    @Override
     public ProductImages save(String url, Product product) {
         if (findByUrlImage(url) != null) {
             return null;

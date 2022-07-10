@@ -14,5 +14,5 @@ public interface OrderService {
     Page<OrderDTO> findAllByAccountId(UUID accountId, Pageable pageable);
     Page<OrderDTO> findAllByLocalAccount(Pageable pageable);
     Order save (OrderRequest orderRequest);
-    void updateStatus(UUID orderId, OrderStatus status);
+
 }
