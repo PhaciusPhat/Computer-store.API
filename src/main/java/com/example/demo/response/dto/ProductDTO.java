@@ -1,7 +1,6 @@
 package com.example.demo.response.dto;
 
 import com.example.demo.models.ProductImages;
-import com.example.demo.models.Rating;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +19,8 @@ public class ProductDTO {
     private int priceOut;
     private int discount;
     private int quantity;
-    private int averageStars;
-    private List<Rating> ratings;
+    private String categoryName;
+    private String brandName;
+    private List<RatingDTO> ratingDTOs;
     private List<ProductImages> productImages;
 }

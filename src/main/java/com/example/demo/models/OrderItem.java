@@ -13,12 +13,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity(name="OrderItem")
 public class OrderItem {
+    @JsonIgnore
     @EmbeddedId
     private OrderItemKey orderItemKey;
     private int price;
     private int quantity;
 
-    @JsonIgnore
     @MapsId("orderId")
     @JoinColumn(name = "orderId")
     @ManyToOne(fetch = FetchType.EAGER)

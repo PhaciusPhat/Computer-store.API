@@ -1,6 +1,4 @@
-package com.example.demo.controllers;
-
-import com.example.demo.models.Brand;
+package com.example.demo.controllers.admin;
 import com.example.demo.services.BrandService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +8,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/api/public/brand")
+@RequestMapping("/api/admin/brand")
 public class BrandController {
     private final BrandService brandService;
 
@@ -34,7 +32,7 @@ public class BrandController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable UUID id, @RequestParam("name") String name, @RequestParam("file") MultipartFile file){
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestParam("name") String name, @RequestParam(value = "file", required = false) MultipartFile file){
         return ResponseEntity.ok(brandService.update(id, name, file));
     }
 

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "cartItem")
+@Entity(name = "CartItem")
 public class CartItem {
     @EmbeddedId
     private CartItemKey cartItemKey;

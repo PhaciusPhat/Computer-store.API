@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.demo.controllers.admin;
 
 import com.example.demo.models.Category;
 import com.example.demo.services.CategoryService;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/public/category")
+@RequestMapping("/api/admin/category")
 public class CategoryController {
     private final CategoryService categoryService;
 

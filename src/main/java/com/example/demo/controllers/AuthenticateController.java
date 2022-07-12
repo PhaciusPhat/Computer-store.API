@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticateController {
@@ -39,7 +41,8 @@ public class AuthenticateController {
         utilities.authenticate(username, password);
         UserDetails userDetails = jwtUserDetailService.loadUserByUsername(username);
         String token = jwtTokenUtils.generateToken(userDetails);
-        return ResponseEntity.ok(new LoginResponse(token));
+        Date expiredDate =  jwtTokenUtils.getExpirationDate(token);
+        return ResponseEntity.ok(new LoginResponse(token, expiredDate));
     }
 
     @PostMapping("/regis")
